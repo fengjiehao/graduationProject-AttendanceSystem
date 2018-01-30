@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fjh.dao.TeacherUserMapper">
+  <resultMap id="BaseResultMap" type="com.fjh.model.TeacherUser">
+    <id column="teacherNo" jdbcType="VARCHAR" property="teacherno" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    teacherNo, password, name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teacheruser
+    where teacherNo = #{teacherno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from teacheruser
+    where teacherNo = #{teacherno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fjh.model.TeacherUser">
+    insert into teacheruser (teacherNo, password, name
+      )
+    values (#{teacherno,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fjh.model.TeacherUser">
+    insert into teacheruser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacherno != null">
+        teacherNo,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacherno != null">
+        #{teacherno,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjh.model.TeacherUser">
+    update teacheruser
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where teacherNo = #{teacherno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjh.model.TeacherUser">
+    update teacheruser
+    set password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR}
+    where teacherNo = #{teacherno,jdbcType=VARCHAR}
+  </update>
+</mapper>

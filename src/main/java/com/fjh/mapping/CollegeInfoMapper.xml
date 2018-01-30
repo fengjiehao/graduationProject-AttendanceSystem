@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fjh.dao.CollegeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.fjh.model.CollegeInfo">
+    <id column="collegeNo" jdbcType="VARCHAR" property="collegeno" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    collegeNo, name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from collegeinfo
+    where collegeNo = #{collegeno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from collegeinfo
+    where collegeNo = #{collegeno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fjh.model.CollegeInfo">
+    insert into collegeinfo (collegeNo, name)
+    values (#{collegeno,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fjh.model.CollegeInfo">
+    insert into collegeinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="collegeno != null">
+        collegeNo,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="collegeno != null">
+        #{collegeno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjh.model.CollegeInfo">
+    update collegeinfo
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where collegeNo = #{collegeno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjh.model.CollegeInfo">
+    update collegeinfo
+    set name = #{name,jdbcType=VARCHAR}
+    where collegeNo = #{collegeno,jdbcType=VARCHAR}
+  </update>
+</mapper>

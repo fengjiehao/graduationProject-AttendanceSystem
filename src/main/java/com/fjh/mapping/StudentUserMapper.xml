@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fjh.dao.StudentUserMapper">
+  <resultMap id="BaseResultMap" type="com.fjh.model.StudentUser">
+    <id column="studentNo" jdbcType="VARCHAR" property="studentno" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    studentNo, password, name
+  </sql>
+  
+  <!-- 通过学号查询 -->
+  <select id="selectByPrimaryKey" parameterType="com.fjh.model.StudentUser">
+    select 
+    from studentuser
+    where studentNo = #{studentno,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询所有信息 -->
+  <select id="getAllStu" resultMap="BaseResultMap">
+   select 
+   <include refid="Base_Column_List"/>
+    from studentuser 
+   </select>
+   
+   <!-- 删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from studentuser
+    where studentNo = #{studentno,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 修改信息 -->
+  <update id="updateStu" parameterType="com.fjh.model.StudentUser" >
+    update studentNo
+    set studentNo = #{studentno,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+         name = #{name,jdbcType=VARCHAR}
+    where studentNo = #{studentno,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.fjh.model.StudentUser">
+    insert into studentuser (studentNo, password, name
+      )
+    values (#{studentno,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.fjh.model.StudentUser">
+    insert into studentuser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentno != null">
+        studentNo,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentno != null">
+        #{studentno,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjh.model.StudentUser">
+    update studentuser
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where studentNo = #{studentno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjh.model.StudentUser">
+    update studentuser
+    set password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR}
+    where studentNo = #{studentno,jdbcType=VARCHAR}
+  </update>
+</mapper>
