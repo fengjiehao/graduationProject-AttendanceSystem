@@ -11,9 +11,10 @@
   </sql>
   
   <!-- 通过学号查询 -->
-  <select id="selectByPrimaryKey" parameterType="com.fjh.model.StudentUser">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
     select 
-    from studentuser
+    <include refid="Base_Column_List"/>
+    from studentuser 
     where studentNo = #{studentno,jdbcType=VARCHAR}
   </select>
   
@@ -32,7 +33,7 @@
   
   <!-- 修改信息 -->
   <update id="updateStu" parameterType="com.fjh.model.StudentUser" >
-    update studentNo
+    update studentuser
     set studentNo = #{studentno,jdbcType=VARCHAR},
         password = #{password,jdbcType=VARCHAR},
          name = #{name,jdbcType=VARCHAR}
@@ -41,9 +42,9 @@
   
   <!-- 添加 -->
   <insert id="insert" parameterType="com.fjh.model.StudentUser">
-    insert into studentuser (studentNo, password, name
+    insert into studentuser (name, studentNo, password
       )
-    values (#{studentno,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+    values (#{name,jdbcType=VARCHAR}, #{studentno,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
       )
   </insert>
   
@@ -90,4 +91,6 @@
       name = #{name,jdbcType=VARCHAR}
     where studentNo = #{studentno,jdbcType=VARCHAR}
   </update>
+  <!-- 逻辑处理 -->
+
 </mapper>

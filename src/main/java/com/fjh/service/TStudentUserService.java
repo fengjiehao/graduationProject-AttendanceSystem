@@ -16,7 +16,7 @@ public interface TStudentUserService {
 	//通过id删除学生信息
 	public int DelStu(String id);
 	//通过id查询学生信息
-	public StudentUser selectById(String id);
+	public List selectById(String id);
 	//查询所有学生信息
 	public  List getAllStu();
 	//修改学生信息

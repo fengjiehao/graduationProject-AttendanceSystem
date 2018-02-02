@@ -28,7 +28,7 @@ public class StudentUserServiceImpl implements TStudentUserService{
 	}
 
 	//通过id查询学生信息
-	public StudentUser selectById(String id) {
+	public List selectById(String id) {
 		// TODO Auto-generated method stub
 		return studentUserMapper.selectByPrimaryKey(id); 
 	}
@@ -44,5 +44,8 @@ public class StudentUserServiceImpl implements TStudentUserService{
 		// TODO Auto-generated method stub
 		return studentUserMapper.updateStu(studentUser);
 	}
+	
+	/*********************************************/
+
 
 }

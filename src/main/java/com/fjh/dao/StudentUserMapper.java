@@ -12,7 +12,7 @@ public interface StudentUserMapper {
 
 	public int insertSelective(StudentUser record);
 
-	public StudentUser selectByPrimaryKey(String studentno);
+	public List<StudentUser> selectByPrimaryKey(String studentno);
     
 	public StudentUser selectByName(String studentno);
 
