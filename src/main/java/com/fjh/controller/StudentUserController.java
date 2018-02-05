@@ -68,7 +68,7 @@ public class StudentUserController {
 		String studentno = newStudentUser.getStudentno();
 		String password = newStudentUser.getPassword();
 		System.out.println(studentUserService.selectById(studentno));
-		if(studentUserService.selectById(studentno) == null) {
+		if(studentUserService.selectById(studentno).size() == 0) {
 			StudentUser studentUser = new StudentUser();
 			studentUser.setName(username);
 			studentUser.setStudentno(studentno);
