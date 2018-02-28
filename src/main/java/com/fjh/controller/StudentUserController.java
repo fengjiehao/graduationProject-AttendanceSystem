@@ -27,25 +27,25 @@ import com.fjh.service.TStudentUserService;
 
 @RestController
 @RequestMapping(value = "/studentUser")
+@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class StudentUserController {
 	@Autowired
 	private TStudentUserService studentUserService;
 	 
-	//»ñÈ¡³õÊ¼»¯Ñ§ÉúĞÅÏ¢Êı¾İ±í
+	//è·å–æ‰€æœ‰å­¦ç”Ÿæ•°æ®
 	 @RequestMapping(value = "/getAllStu", method = RequestMethod.GET)
 	 @GET
-	 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	 public List<StudentUser> getAllStu(@Context HttpServletResponse request) {
 		List<StudentUser> studentUser=new ArrayList<StudentUser>();
 		studentUser=this.studentUserService.getAllStu();		
 		return studentUser;
 	}
 	 
-	//Í¨¹ıÑ§ºÅ²éÑ¯Ñ§ÉúĞÅÏ¢
+	//Í¨é€šè¿‡IDæŸ¥è¯¢å­¦ç”Ÿä¿¡æ¯
 	 @RequestMapping(value = "/getStuById", method = RequestMethod.GET)
 	 @POST
 	 @GET
-	 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	 
 	 public List<StudentUser> getStuById(@RequestParam final String id, @Context HttpServletResponse request) {
 		String studentno = id;
 		 List<StudentUser> studentUser=new ArrayList<StudentUser>();
@@ -58,11 +58,9 @@ public class StudentUserController {
 		return studentUser;
 	}
 	 				
-	//ĞÂÔöÑ§ÉúĞÅÏ¢
-	 			//½ÓÊÕÊı¾İÎªJSON£¬²ÎÊıÇ°ĞèÒªÌí¼Ó@RequestBody
+	//æ–°å¢å­¦ç”Ÿä¿¡æ¯
 	@RequestMapping(value = "/saveStudentInfo", method = RequestMethod.POST)
 	@POST
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public StudentUser saveStudentInfo(@RequestBody StudentUser newStudentUser, @Context HttpServletResponse request) {	
 		String username = newStudentUser.getName();
 		String studentno = newStudentUser.getStudentno();
@@ -82,10 +80,9 @@ public class StudentUserController {
 		}
 		return null;
 	}
-	//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
+	//ç¼–è¾‘æ›´æ–°å­¦ç”Ÿä¿¡æ¯
 	@RequestMapping(value = "/editStudentInfo", method = RequestMethod.POST)
 	@POST
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public StudentUser editStudentInfo(@RequestBody StudentUser editStudentUser, @Context HttpServletResponse request) {	
 		String username = editStudentUser.getName();
 		String studentno = editStudentUser.getStudentno();
@@ -106,10 +103,9 @@ public class StudentUserController {
 				return null;
 			}
 	
-	//É¾³ıÑ§ÉúĞÅÏ¢
+	//åˆ é™¤å­¦ç”Ÿä¿¡æ¯ï¼ˆé€šè¿‡IDï¼‰
 		@RequestMapping(value = "/delStudentInfo", method = RequestMethod.POST)
 		@POST
-		@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 		public String delStudentInfo(@RequestBody StudentUser delStudentUser, @Context HttpServletResponse request) {	
 			String studentno = delStudentUser.getStudentno();
 			System.out.println(studentUserService.selectById(studentno));

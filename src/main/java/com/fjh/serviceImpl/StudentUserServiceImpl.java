@@ -15,31 +15,31 @@ public class StudentUserServiceImpl implements TStudentUserService{
 	@Resource
 	private StudentUserMapper studentUserMapper;
 	
-	// Ìí¼ÓÑ§ÉúĞÅÏ¢
+	// æ·»åŠ å­¦ç”Ÿä¿¡æ¯
 	public int addStu(StudentUser studentUser) {
 		// TODO Auto-generated method stub
 		return studentUserMapper.insert(studentUser);
 	}
 
-	//Í¨¹ıidÉ¾³ıÑ§ÉúĞÅÏ¢
+	//Í¨åˆ é™¤å­¦ç”Ÿä¿¡æ¯
 	public int DelStu(String id) {
 		// TODO Auto-generated method stub
 		return studentUserMapper.deleteByPrimaryKey(id);
 	}
 
-	//Í¨¹ıid²éÑ¯Ñ§ÉúĞÅÏ¢
+	//Í¨é€šè¿‡IDæŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯
 	public List selectById(String id) {
 		// TODO Auto-generated method stub
 		return studentUserMapper.selectByPrimaryKey(id); 
 	}
 	
-	//²éÑ¯ËùÓĞÑ§ÉúĞÅÏ¢
+	//è·å–æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯
 	public List getAllStu() {
 		// TODO Auto-generated method stub
 		return studentUserMapper.getAllStu();
 	}
 
-	//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
+	//ç¼–è¾‘æ›´æ–°å­¦ç”Ÿä¿¡æ¯
 	public int updateStu(StudentUser studentUser) {
 		// TODO Auto-generated method stub
 		return studentUserMapper.updateStu(studentUser);

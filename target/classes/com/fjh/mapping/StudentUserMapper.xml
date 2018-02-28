@@ -2,57 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fjh.dao.StudentUserMapper">
   <resultMap id="BaseResultMap" type="com.fjh.model.StudentUser">
-    <id column="studentNo" jdbcType="VARCHAR" property="studentno" />
+    <id column="user" jdbcType="VARCHAR" property="studentno" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <sql id="Base_Column_List">
-    studentNo, password, name
+    user, password, name, ruleType
   </sql>
   
   <!-- 通过学号查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
     select 
     <include refid="Base_Column_List"/>
-    from studentuser 
-    where studentNo = #{studentno,jdbcType=VARCHAR}
+    from users 
+    where user like CONCAT(#{studentno,jdbcType=VARCHAR},'%') and ruleType = 2
   </select>
   
   <!-- 查询所有信息 -->
   <select id="getAllStu" resultMap="BaseResultMap">
    select 
    <include refid="Base_Column_List"/>
-    from studentuser 
+    from users 
+    where ruleType = 2
    </select>
    
    <!-- 删除 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from studentuser
-    where studentNo = #{studentno,jdbcType=VARCHAR}
+    delete from users
+    where user = #{studentno,jdbcType=VARCHAR} and ruleType = 2
   </delete>
   
   <!-- 修改信息 -->
   <update id="updateStu" parameterType="com.fjh.model.StudentUser" >
-    update studentuser
-    set studentNo = #{studentno,jdbcType=VARCHAR},
+    update users
+    set user = #{studentno,jdbcType=VARCHAR},
         password = #{password,jdbcType=VARCHAR},
          name = #{name,jdbcType=VARCHAR}
-    where studentNo = #{studentno,jdbcType=INTEGER}
+    where user = #{studentno,jdbcType=INTEGER} and ruleType = 2
   </update>
   
   <!-- 添加 -->
   <insert id="insert" parameterType="com.fjh.model.StudentUser">
-    insert into studentuser (name, studentNo, password
+    insert into users (name, user, password, ruleType
       )
-    values (#{name,jdbcType=VARCHAR}, #{studentno,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+    values (#{name,jdbcType=VARCHAR}, #{studentno,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 2
       )
   </insert>
   
   <insert id="insertSelective" parameterType="com.fjh.model.StudentUser">
-    insert into studentuser
+    insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="studentno != null">
-        studentNo,
+      <if test="user != null">
+        user,
       </if>
       <if test="password != null">
         password,
@@ -62,7 +63,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="studentno != null">
+      <if test="user != null">
         #{studentno,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
@@ -74,7 +75,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fjh.model.StudentUser">
-    update studentuser
+    update user
     <set>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -83,13 +84,13 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
-    where studentNo = #{studentno,jdbcType=VARCHAR}
+    where user = #{studentno,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fjh.model.StudentUser">
-    update studentuser
+    update user
     set password = #{password,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR}
-    where studentNo = #{studentno,jdbcType=VARCHAR}
+    where user = #{studentno,jdbcType=VARCHAR}
   </update>
   <!-- 逻辑处理 -->
 

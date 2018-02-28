@@ -11,15 +11,15 @@ import com.fjh.model.StudentUser;
 @Service("studentUserService")
 public interface TStudentUserService {
 	@Resource
-	// Ìí¼ÓÑ§ÉúĞÅÏ¢
+	// æ·»åŠ 
 	public int addStu(StudentUser studentUser);
-	//Í¨¹ıidÉ¾³ıÑ§ÉúĞÅÏ¢
+	//Í¨åˆ é™¤
 	public int DelStu(String id);
-	//Í¨¹ıid²éÑ¯Ñ§ÉúĞÅÏ¢
+	//Í¨æŸ¥è¯¢
 	public List selectById(String id);
-	//²éÑ¯ËùÓĞÑ§ÉúĞÅÏ¢
+	//æŸ¥è¯¢æ‰€æœ‰
 	public  List getAllStu();
-	//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
+	//æ›´æ–°
 	public int updateStu(StudentUser studentUser);
 	
 	

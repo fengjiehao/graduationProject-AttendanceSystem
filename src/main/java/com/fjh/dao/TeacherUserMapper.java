@@ -1,17 +1,27 @@
 package com.fjh.dao;
 
+import java.util.List;
+
 import com.fjh.model.TeacherUser;
 
 public interface TeacherUserMapper {
-    int deleteByPrimaryKey(String teacherno);
+	public int deleteByPrimaryKey(String id);
 
-    int insert(TeacherUser record);
+	public int insert(TeacherUser record);
 
-    int insertSelective(TeacherUser record);
+	public int insertSelective(TeacherUser record);
 
-    TeacherUser selectByPrimaryKey(String teacherno);
+	public List<TeacherUser> selectByPrimaryKey(String teacherno);
+    
+	public TeacherUser selectByName(String teacherno);
 
-    int updateByPrimaryKeySelective(TeacherUser record);
+	public int updateByPrimaryKeySelective(TeacherUser record);
 
-    int updateByPrimaryKey(TeacherUser record);
+	public int updateByPrimaryKey(TeacherUser record);
+
+	public int updateUserPwdByName(TeacherUser teacherUser);
+
+	public int updateTea(TeacherUser teacherUser);
+
+	public List<TeacherUser> getAllTea();
 }
