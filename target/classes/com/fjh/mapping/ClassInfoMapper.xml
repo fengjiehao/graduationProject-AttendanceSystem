@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fjh.dao.ClassInfoMapper">
+  <resultMap id="BaseResultMap" type="com.fjh.model.ClassInfo">
+    <id column="classNo" jdbcType="VARCHAR" property="classno" />
+    <result column="className" jdbcType="VARCHAR" property="classname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    classNo, className
+  </sql>
+  
+  <!-- 通过学号查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List"/>
+    from classinfo 
+    where classNo like CONCAT(#{classno,jdbcType=VARCHAR},'%')
+  </select>
+  
+  <!-- 查询所有信息 -->
+  <select id="getAllClass" resultMap="BaseResultMap">
+   select 
+   <include refid="Base_Column_List"/>
+    from classinfo 
+   </select>
+   
+   <!-- 根据分页数据start 和size查询数据 -->
+    <select id="findByPage" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        classNo, className
+        from classinfo
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    
+     <!-- 查询用户记录总数 -->
+    <select id="selectCount" resultType="int">
+        select count(*) from classinfo
+    </select>
+   
+   
+   <!-- 删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from classinfo
+    where classNo = #{classno,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 修改信息 -->
+  <update id="updateClass" parameterType="com.fjh.model.ClassInfo" >
+    update classinfo
+    set classNo = #{classno,jdbcType=VARCHAR},
+    	className = #{classname,jdbcType=VARCHAR}
+    where classNo = #{classno,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="com.fjh.model.ClassInfo">
+    insert into classinfo (classNo, className
+      )
+    values (#{classno,jdbcType=VARCHAR}, #{classname,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  
+
+  <insert id="insertSelective" parameterType="com.fjh.model.ClassInfo">
+    insert into classinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classno != null">
+        classNo,
+      </if>
+      <if test="classname != null">
+        className,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classno != null">
+        #{classno,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        #{classname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjh.model.ClassInfo">
+    update classinfo
+    <set>
+      <if test="classname != null">
+        className = #{classname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where classNo = #{classno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjh.model.ClassInfo">
+    update classinfo
+    set className = #{classname,jdbcType=VARCHAR}
+    where classNo = #{classno,jdbcType=VARCHAR}
+  </update>
+</mapper>
