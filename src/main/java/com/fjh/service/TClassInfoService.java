@@ -17,15 +17,21 @@ public interface TClassInfoService {
 	public int addClass(ClassInfo classInfo);
 	//ͨ删除
 	public int DelClass(String id);
+	//ͨ批量删除
+	public int DelClassBatch(List<ClassInfo> classInfoList);
 	//ͨ查询
 	public List selectById(String id);
+	//通过ID分页查询
+	//ͨ查询
+	public PageBean<ClassInfo> selectByIdPaging(String id, int currentPage);
 	//查询所有
 	public  List getAllClass();
 	//更新
 	public int updateClass(ClassInfo classInfo);
-	//查询数据总数
+	//查询总数据总数
 	public int selectCount();
-	//分页查询数据
+	//查询结果的数据总数
+	public int selectCountPaging(String id);
+	//分页查询
 	public PageBean<ClassInfo> findByPage(int currentPage);
-	
 }

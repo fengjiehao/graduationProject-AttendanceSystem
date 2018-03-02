@@ -17,6 +17,18 @@
     where classNo like CONCAT(#{classno,jdbcType=VARCHAR},'%')
   </select>
   
+     <!-- 通过学号根据分页数据start 和size查询数据 -->
+    <select id="selectByPrimaryKeyPaging" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        classNo, className
+        from classinfo
+        where classNo like CONCAT(#{id},'%')
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+  
   <!-- 查询所有信息 -->
   <select id="getAllClass" resultMap="BaseResultMap">
    select 
@@ -38,6 +50,12 @@
      <!-- 查询用户记录总数 -->
     <select id="selectCount" resultType="int">
         select count(*) from classinfo
+    </select>
+    
+         <!--通过学号查询结果总数-->
+    <select id="selectCountPaging" resultType="int">
+        select count(*) from classinfo
+        where classNo like CONCAT(#{id,jdbcType=VARCHAR},'%')
     </select>
    
    
