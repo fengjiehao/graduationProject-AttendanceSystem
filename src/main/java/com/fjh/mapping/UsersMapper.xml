@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fjh.dao.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.fjh.model.Users">
+    <id column="user" jdbcType="VARCHAR" property="user" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ruleType" jdbcType="INTEGER" property="ruletype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user, password, name, ruleType
+  </sql>
+  
+  <!-- 通过ID查询信息  -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where user = #{user,jdbcType=VARCHAR}
+  </select>
+  
+    <!-- 修改信息 -->
+  <update id="updatePassword" parameterType="com.fjh.model.Users" >
+    update users
+    set password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      ruleType = #{ruletype,jdbcType=INTEGER}
+    where user = #{user,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from users
+    where user = #{user,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fjh.model.Users">
+    insert into users (user, password, name, 
+      ruleType)
+    values (#{user,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{ruletype,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fjh.model.Users">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user != null">
+        user,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="ruletype != null">
+        ruleType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user != null">
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ruletype != null">
+        #{ruletype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjh.model.Users">
+    update users
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ruletype != null">
+        ruleType = #{ruletype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user = #{user,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjh.model.Users">
+    update users
+    set password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      ruleType = #{ruletype,jdbcType=INTEGER}
+    where user = #{user,jdbcType=VARCHAR}
+  </update>
+</mapper>
