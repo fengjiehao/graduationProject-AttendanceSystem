@@ -117,7 +117,7 @@ public class ClassInfoController {
 		System.out.println(classInfoService.selectById(classNo));
 		if(classInfoService.selectById(classNo).size() == 0) {
 			ClassInfo classInfo = new ClassInfo();
-			classInfo.setClassno(classNo);;
+			classInfo.setClassno(classNo);
 			classInfo.setClassname(className);
 			if(classInfo.getClassno() != null || classInfo.getClassname() != null) {
 				int i = this.classInfoService.addClass(classInfo);
@@ -137,7 +137,7 @@ public class ClassInfoController {
 		System.out.println(classInfoService.selectById(classNo));
 		if(classInfoService.selectById(classNo) != null) {
 			ClassInfo classInfo = new ClassInfo();
-			classInfo.setClassno(classNo);;
+			classInfo.setClassno(classNo);
 			classInfo.setClassname(className);
 			if(classInfo.getClassno() != null || classInfo.getClassname() != null) {
 				int i = this.classInfoService.updateClass(classInfo);

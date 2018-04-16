@@ -5,17 +5,17 @@ import java.util.List;
 import com.fjh.model.Users;
 
 public interface UsersMapper {
-    int deleteByPrimaryKey(String user);
+	public int deleteByPrimaryKey(String user);
 
-    int insert(Users record);
+	public int insert(Users users);
 
-    int insertSelective(Users record);
+	public int insertSelective(Users record);
 
-    Users selectByPrimaryKey(String user);
+	public Users selectByPrimaryKey(String user);
 
-    int updateByPrimaryKeySelective(Users record);
+	public int updateByPrimaryKeySelective(Users record);
 
-    int updateByPrimaryKey(Users record);
+	public int updateByPrimaryKey(Users record);
     
 	public int updatePassword(Users users);
     

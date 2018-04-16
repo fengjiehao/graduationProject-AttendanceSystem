@@ -17,4 +17,7 @@ public interface TUsersService {
 	
 	//修改密码
 	public int updatePassword(Users users);
+	
+	//新增
+	public int insert(Users users);
 }

@@ -24,4 +24,9 @@ public class UsersServiceImpl implements TUsersService{
 	public int updatePassword(Users users) {
 		return usersMapper.updatePassword(users);
 	}
+	
+	//新增
+	public int insert(Users users) {
+		return usersMapper.insert(users);
+	}
 }

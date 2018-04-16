@@ -32,12 +32,15 @@
     delete from users
     where user = #{user,jdbcType=VARCHAR}
   </delete>
+  
+  	<!-- 新增 -->
   <insert id="insert" parameterType="com.fjh.model.Users">
     insert into users (user, password, name, 
       ruleType)
     values (#{user,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{ruletype,jdbcType=INTEGER})
   </insert>
+  
   <insert id="insertSelective" parameterType="com.fjh.model.Users">
     insert into users
     <trim prefix="(" suffix=")" suffixOverrides=",">

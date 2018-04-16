@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fjh.model.StudentUser;
 import com.fjh.model.TeacherUser;
 import com.fjh.model.Users;
 import com.fjh.service.TUsersService;
@@ -86,5 +87,39 @@ public class UsersController {
 			}
 			return null;
 		}
+
+		//获取测试数据
+		 @RequestMapping(value = "/getTest", method = RequestMethod.GET)
+		 @GET
+		 public String getAllStu(@Context HttpServletResponse request) {		
+			return "jeremy is me";
+		}		
+		
+		//创建登陆账号
+		@RequestMapping(value = "/createUser", method = RequestMethod.POST)
+		@POST
+		public Users createUser (@RequestBody Users users, @Context HttpServletResponse request) {
+			String user = users.getUser();
+			String password = users.getPassword();
+			String name = users.getName();
+			int ruleType = users.getRuletype();
+			 Users newUsers = new Users();
+			 newUsers = usersService.selectById(user);
+			if(newUsers == null) {
+				Users users1 = new Users();
+				users1.setUser(user);
+				users1.setPassword(password);
+				users1.setName(name);
+				users1.setRuletype(ruleType);
+				if(users1.getUser() != null || users1.getPassword() != null 
+						|| users1.getName() != null  || users1.getRuletype() != null ) {
+					int i = usersService.insert(users1);
+					if(i>0 && users1!=null){
+						return users1;
+						}
+				}
+			}
+			return null;
+		}		
 
 }

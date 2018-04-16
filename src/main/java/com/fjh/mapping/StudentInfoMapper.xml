@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fjh.dao.StudentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.fjh.model.StudentInfo">
+    <id column="sno" jdbcType="VARCHAR" property="sno" />
+    <result column="spassword" jdbcType="VARCHAR" property="spassword" />
+    <result column="sname" jdbcType="VARCHAR" property="sname" />
+    <result column="scollege" jdbcType="VARCHAR" property="scollege" />
+    <result column="smajor" jdbcType="VARCHAR" property="smajor" />
+    <result column="sclass" jdbcType="VARCHAR" property="sclass" />
+    <result column="sgrade" jdbcType="VARCHAR" property="sgrade" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sno, spassword, sname, scollege, smajor, sclass, sgrade
+  </sql>
+  
+     <!-- 通过学号查询 -->
+  <select id="selectByPrimaryKeyLike" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List"/>
+    from studentinfo
+    where sno like CONCAT(#{sno,jdbcType=VARCHAR},'%')
+  </select>
+  
+     <!-- 通过学号根据分页数据start 和size查询数据 -->
+    <select id="selectByPrimaryKeyPaging" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        sno, spassword, sname, scollege, smajor, sclass, sgrade
+        from studentinfo
+        where sno like CONCAT(#{id},'%')
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+  
+  <!-- 查询所有信息 -->
+  <select id="getAllStudentInfo" resultMap="BaseResultMap">
+   select 
+   <include refid="Base_Column_List"/>
+    from studentinfo 
+   </select>
+   
+   
+   <!-- 根据分页数据start 和size查询数据 -->
+    <select id="findByPage" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from studentinfo
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    
+     <!-- 查询用户记录总数 -->
+    <select id="selectCount" resultType="int">
+        select count(*) from studentinfo
+    </select>
+    
+         <!--通过学号查询结果总数-->
+    <select id="selectCountPaging" resultType="int">
+        select count(*) from studentinfo
+        where sno like CONCAT(#{id,jdbcType=VARCHAR},'%')
+    </select>
+   
+   
+   <!-- 删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from studentinfo
+    where sno = #{sno,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 修改信息 -->
+  <update id="updateStudentInfo" parameterType="com.fjh.model.StudentInfo" >
+    update studentinfo
+    set sno = #{sno,jdbcType=VARCHAR},
+    	spassword = #{spassword,jdbcType=VARCHAR},
+    	sname = #{sname,jdbcType=VARCHAR},
+    	scollege = #{scollege,jdbcType=VARCHAR},
+    	smajor = #{smajor,jdbcType=VARCHAR},
+    	sclass = #{sclass,jdbcType=VARCHAR},
+    	sgrade = #{sgrade,jdbcType=VARCHAR}
+    	
+    where sno = #{sno,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 添加 -->
+    <insert id="insert" parameterType="com.fjh.model.StudentInfo">
+    insert into studentinfo (sno, spassword, sname, 
+      scollege, smajor, sclass, 
+      sgrade)
+    values (#{sno,jdbcType=VARCHAR}, #{spassword,jdbcType=VARCHAR}, #{sname,jdbcType=VARCHAR}, 
+      #{scollege,jdbcType=VARCHAR}, #{smajor,jdbcType=VARCHAR}, #{sclass,jdbcType=VARCHAR}, 
+      #{sgrade,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from studentinfo
+    where sno = #{sno,jdbcType=VARCHAR}
+  </select>
+
+
+  <insert id="insertSelective" parameterType="com.fjh.model.StudentInfo">
+    insert into studentinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sno != null">
+        sno,
+      </if>
+      <if test="spassword != null">
+        spassword,
+      </if>
+      <if test="sname != null">
+        sname,
+      </if>
+      <if test="scollege != null">
+        scollege,
+      </if>
+      <if test="smajor != null">
+        smajor,
+      </if>
+      <if test="sclass != null">
+        sclass,
+      </if>
+      <if test="sgrade != null">
+        sgrade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sno != null">
+        #{sno,jdbcType=VARCHAR},
+      </if>
+      <if test="spassword != null">
+        #{spassword,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null">
+        #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="scollege != null">
+        #{scollege,jdbcType=VARCHAR},
+      </if>
+      <if test="smajor != null">
+        #{smajor,jdbcType=VARCHAR},
+      </if>
+      <if test="sclass != null">
+        #{sclass,jdbcType=VARCHAR},
+      </if>
+      <if test="sgrade != null">
+        #{sgrade,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fjh.model.StudentInfo">
+    update studentinfo
+    <set>
+      <if test="spassword != null">
+        spassword = #{spassword,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null">
+        sname = #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="scollege != null">
+        scollege = #{scollege,jdbcType=VARCHAR},
+      </if>
+      <if test="smajor != null">
+        smajor = #{smajor,jdbcType=VARCHAR},
+      </if>
+      <if test="sclass != null">
+        sclass = #{sclass,jdbcType=VARCHAR},
+      </if>
+      <if test="sgrade != null">
+        sgrade = #{sgrade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sno = #{sno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fjh.model.StudentInfo">
+    update studentinfo
+    set spassword = #{spassword,jdbcType=VARCHAR},
+      sname = #{sname,jdbcType=VARCHAR},
+      scollege = #{scollege,jdbcType=VARCHAR},
+      smajor = #{smajor,jdbcType=VARCHAR},
+      sclass = #{sclass,jdbcType=VARCHAR},
+      sgrade = #{sgrade,jdbcType=VARCHAR}
+    where sno = #{sno,jdbcType=VARCHAR}
+  </update>
+</mapper>
